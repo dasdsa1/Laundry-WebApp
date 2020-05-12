@@ -1,0 +1,23 @@
+﻿@model WebApplication3.ViewModels.NewAddressViewModel
+@{
+    ViewData["Title"] = "NewAddress";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>NewAddress</h1>
+
+@using (Html.BeginForm("SaveAddress", "Schedule"))
+{
+
+
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.UserAddress.Address)
+        @Html.TextBoxFor(m => m.UserAddress.Address, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.UserAddress.Address)
+    </div>
+
+    <div>
+        <p><button type="submit" class="btn btn-primary">Save</button></p>
+    </div>
+}

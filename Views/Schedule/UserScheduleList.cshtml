@@ -1,0 +1,66 @@
+﻿@model WebApplication3.ViewModels.ScheduleListViewModel
+@{
+    ViewData["Title"] = "UserScheduleList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>UserScheduleList</h1>
+
+@Html.ActionLink("Add Schedule", "Index", "Schedule", null, new { @class = "btn btn-primary" })
+
+@Html.ActionLink("Add Address", "NewAddress", "Schedule", null, new { @class = "btn btn-primary" })
+
+@Html.ActionLink("Manage Addresses", "AdddressList", "Schedule", null, new { @class = "btn btn-primary" })
+
+@{
+    if (!Model.UserSchedulesList.Any())
+    {
+        <p></p>
+        <p>No schedules available, please schedule your first request!</p>
+        <p></p>
+    }
+    else
+    {
+        @if (!Model.Addresses.Any())
+        {
+            <p>Please add an address.</p>
+        }
+        else
+        {
+            <table class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                    <th>Schedule</th>
+                    <th>Address</th>
+                    <th>Delete Schedule</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var schedule in Model.UserSchedulesList)
+                {
+                    <tr>
+                        <td>@Html.ActionLink(schedule.ScheduledTime.ToLongDateString(), "Edit", "Schedule", new { id = schedule.Id }, null)</td>
+                        @{
+                            if (Model.Addresses.SingleOrDefault(c => c.Id == schedule.UserAddressId) == null)
+                            {
+                                                <td>"No address available"</td>
+                            }
+                            else
+                            {
+                                <td>@Model.Addresses.SingleOrDefault(c => c.Id == schedule.UserAddressId).Address</td>
+                            }
+                    
+                        }
+                        
+                        
+                        <td>@Html.ActionLink("Delete Schedule", "DeleteSchedule", "Schedule", new { id = schedule.Id }, new { @class = "btn btn-primary" })</td>
+                    </tr>
+
+                }
+                </tbody>
+            </table>
+        }
+
+    }
+}
+
