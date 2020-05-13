@@ -29,10 +29,10 @@ namespace WebApplication3.Controllers
         {
             base.Dispose(disposing);
         }
+        [Authorize]
         public IActionResult Index()
         {
-            if (!this.User.Claims.Any())
-                return RedirectToAction("Index", "Home");
+            
 
             var currentUser = this.User;
             
@@ -51,7 +51,7 @@ namespace WebApplication3.Controllers
             return View(viewModel);
         }
 
-        
+        [Authorize]
         [Route("/schedule/edit/{id}")]
         public IActionResult Edit(int id)
         {
@@ -67,6 +67,7 @@ namespace WebApplication3.Controllers
             return View("Edit", viewModel);
         }
 
+        [Authorize]
         public IActionResult EditAddress(int id)
         {
             var currentUser = this.User;
@@ -83,15 +84,14 @@ namespace WebApplication3.Controllers
         }
 
 
-
-        
+        [Authorize]
         [HttpPost]
         public IActionResult Save(Schedule schedule)
         {
             var currentUser = this.User;
-            var currentUserID = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var currentUserId = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
 
-            var oldAddresses = _context.Addresses.ToList().Where(m => m.ApplicationUserId == currentUserID);
+            var oldAddresses = _context.Addresses.ToList().Where(m => m.ApplicationUserId == currentUserId);
 
            
             if (!ModelState.IsValid)
@@ -102,11 +102,14 @@ namespace WebApplication3.Controllers
             }
             if (schedule.Id == 0)
             {
+                var scheduleUser = _context.ApplicationUsers.ToList().Single(c => c.Id == currentUserId);
+                var scheduleUserName = scheduleUser.FirstName + " " + scheduleUser.LastName;
 
-                schedule.State = "New";
-                schedule.ApplicationUserId = currentUserID;
-                schedule.RequestTime = DateTime.Now;
                 
+                schedule.State = "New";
+                schedule.ApplicationUserId = currentUserId;
+                schedule.RequestTime = DateTime.Now;
+                schedule.Name = scheduleUserName;
                 _context.Schedules.Add(schedule);
             }
             else
@@ -120,7 +123,7 @@ namespace WebApplication3.Controllers
 
                 scheduleInDb.RequestTime = DateTime.Now;
 
-                scheduleInDb.ApplicationUserId = currentUserID;
+                scheduleInDb.ApplicationUserId = currentUserId;
 
                 scheduleInDb.Id = schedule.Id;
 
@@ -131,11 +134,11 @@ namespace WebApplication3.Controllers
             return RedirectToAction("UserScheduleList", "Schedule");
         }
 
+        [Authorize]
         [Route("/schedule/userScheduleList/")]
         public IActionResult UserScheduleList()
         {
-            if (!this.User.Claims.Any())
-                return RedirectToAction("Index", "Home");
+           
 
 
             var currentUser = this.User;
@@ -155,6 +158,7 @@ namespace WebApplication3.Controllers
             return View(viewModel);
         }
 
+        [Authorize]
         public IActionResult SaveAddress(UserAddress userAddress)
         {
             if (!ModelState.IsValid)
@@ -186,13 +190,15 @@ namespace WebApplication3.Controllers
             return RedirectToAction("UserScheduleList", "Schedule");
         }
 
+        [Authorize]
         public IActionResult NewAddress()
         {
             var newAddress = new NewAddressViewModel();
             return View(newAddress);
         }
 
-        //When admin deletes the address, it's being redirected to UserScheduleList.
+        
+        [Authorize]
         public IActionResult DeleteSchedule(int id)
         {
 
@@ -209,7 +215,7 @@ namespace WebApplication3.Controllers
 
         }
 
-        
+        [Authorize]
         public IActionResult DeleteAddress(int id)
         {
             var addressInDb = _context.Addresses.Single(c => c.Id == id);
@@ -225,6 +231,7 @@ namespace WebApplication3.Controllers
             return RedirectToAction("AdddressList");
         }
 
+        [Authorize]
         public IActionResult AdddressList()
         {
             var currentUser = this.User;

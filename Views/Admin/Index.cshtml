@@ -29,8 +29,8 @@
                         <th>User</th>
                         <th>Address</th>
                         <th>State</th>
-                        <th>Delete Schedule</th>
                         <th>Accept Schedule</th>
+                        <th>Delete Schedule</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -38,7 +38,9 @@
                 {
                     <tr>
                         <td>@Html.ActionLink(schedule.ScheduledTime.ToLongDateString(), "Edit", "Admin", new { id = schedule.Id }, null)</td>
-                        <td>Need to implement username.</td>
+
+                        <td>@schedule.Name</td>
+
                         @{
                             if (Model.Addresses.SingleOrDefault(c => c.Id == schedule.UserAddressId) == null)
                             {
@@ -57,10 +59,15 @@
                             {
                                 <td>@Html.ActionLink("Conclude", "AcceptSchedule", "Admin", new { id = schedule.Id, state = "Concluded" }, new { @class = "btn btn-primary" })</td>
                             }
+                            else if  (schedule.State == "Concluded")
+                            {
+                                <td>@Html.ActionLink("Reopen", "AcceptSchedule", "Admin", new { id = schedule.Id, state = "Reopened" }, new { @class = "btn btn-primary" })</td>
+
+                            }
                             else
                             {
-                                
-                                    <td>@Html.ActionLink("Accept", "AcceptSchedule", "Admin", new { id = schedule.Id, state = "Accepted" }, new { @class = "btn btn-primary" })</td>
+
+                                <td>@Html.ActionLink("Accept", "AcceptSchedule", "Admin", new { id = schedule.Id, state = "Accepted" }, new { @class = "btn btn-primary" })</td>
                             }
                         }
                         <td>@Html.ActionLink("Delete", "DeleteSchedule", "Admin", new { id = schedule.Id }, new { @class = "btn btn-primary" })</td>

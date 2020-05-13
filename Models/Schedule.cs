@@ -11,7 +11,7 @@ namespace WebApplication3.Models
 
         public DateTime ScheduledTime { get; set; }
 
-        
+
         public string ApplicationUserId { get; set; }
 
         public DateTime RequestTime { get; set; }
@@ -22,7 +22,8 @@ namespace WebApplication3.Models
 
         public string State { get; set; }
 
-        
-        
+        public string Name { get; set; }
+
+
     }
 }

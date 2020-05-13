@@ -74,9 +74,9 @@ namespace WebApplication3.Controllers
         public IActionResult Edit(int id)
         {
             var currentUser = this.User;
-            var currentUserID = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var currentUserId = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
 
-            var oldAddresses = _context.Addresses.ToList().Where(m => m.ApplicationUserId == currentUserID);
+            var oldAddresses = _context.Addresses.ToList().Where(m => m.ApplicationUserId == currentUserId);
 
             var schedule = _context.Schedules.Include(c => c.UserAddress).SingleOrDefault(m => m.Id == id);
 
@@ -89,9 +89,9 @@ namespace WebApplication3.Controllers
         public IActionResult Save(Schedule schedule)
         {
             var currentUser = this.User;
-            var currentUserID = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var currentUserId = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
 
-            var oldAddresses = _context.Addresses.ToList().Where(m => m.ApplicationUserId == currentUserID);
+            var oldAddresses = _context.Addresses.ToList().Where(m => m.ApplicationUserId == currentUserId);
 
 
             if (!ModelState.IsValid)
@@ -104,7 +104,7 @@ namespace WebApplication3.Controllers
             {
 
                 schedule.State = "New";
-                schedule.ApplicationUserId = currentUserID;
+                schedule.ApplicationUserId = currentUserId;
                 schedule.RequestTime = DateTime.Now;
 
                 _context.Schedules.Add(schedule);
@@ -116,15 +116,15 @@ namespace WebApplication3.Controllers
 
                 scheduleInDb.UserAddressId = schedule.UserAddressId;
 
-                scheduleInDb.ScheduledTime = schedule.ScheduledTime;
+                scheduleInDb.ScheduledTime = schedule.ScheduledTime;    
 
                 scheduleInDb.RequestTime = DateTime.Now;
 
-                scheduleInDb.ApplicationUserId = currentUserID;
+                scheduleInDb.ApplicationUserId = currentUserId;
 
                 scheduleInDb.Id = schedule.Id;
 
-                scheduleInDb.State = "Edited";
+                scheduleInDb.State = "Edited by Admin";
             }
 
             _context.SaveChanges();

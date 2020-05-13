@@ -32,6 +32,7 @@
                 <tr>
                     <th>Schedule</th>
                     <th>Address</th>
+                    <th>Status</th>
                     <th>Delete Schedule</th>
                 </tr>
                 </thead>
@@ -43,7 +44,7 @@
                         @{
                             if (Model.Addresses.SingleOrDefault(c => c.Id == schedule.UserAddressId) == null)
                             {
-                                                <td>"No address available"</td>
+                                                <td>"No address available, please edit the schedule."</td>
                             }
                             else
                             {
@@ -51,7 +52,7 @@
                             }
                     
                         }
-                        
+                        <td>@schedule.State</td>
                         
                         <td>@Html.ActionLink("Delete Schedule", "DeleteSchedule", "Schedule", new { id = schedule.Id }, new { @class = "btn btn-primary" })</td>
                     </tr>
