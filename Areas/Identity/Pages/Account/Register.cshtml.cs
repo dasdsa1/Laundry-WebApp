@@ -72,6 +72,11 @@ namespace WebApplication3.Areas.Identity.Pages.Account
             [Required]
             [Display(Name = "Apelido")]
             public string LastName { get; set; }
+
+            [Required(ErrorMessage = "Please Select a client type, Personal or Company.")]
+            public string ClientType { get; set; }
+
+            
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -86,7 +91,7 @@ namespace WebApplication3.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email, FirstName = Input.FirstName, LastName = Input.LastName};
+                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email, FirstName = Input.FirstName, LastName = Input.LastName, ClientType = Input.ClientType};
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {

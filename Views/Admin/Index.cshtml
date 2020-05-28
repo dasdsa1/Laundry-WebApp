@@ -27,10 +27,16 @@
                     <tr>
                         <th>Schedule</th>
                         <th>User</th>
+                        <th>Type of Client</th>
                         <th>Address</th>
                         <th>State</th>
                         <th>Accept Schedule</th>
                         <th>Delete Schedule</th>
+                        <th>Obs</th>
+                        <th>Type of service</th>
+                        <th>Duvet</th>
+                        <th>Blanket</th>
+                        <th>Carpet</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -40,6 +46,7 @@
                         <td>@Html.ActionLink(schedule.ScheduledTime.ToLongDateString(), "Edit", "Admin", new { id = schedule.Id }, null)</td>
 
                         <td>@schedule.Name</td>
+                        <td>@schedule.TypeOfClient</td>
 
                         @{
                             if (Model.Addresses.SingleOrDefault(c => c.Id == schedule.UserAddressId) == null)
@@ -52,6 +59,8 @@
                             }
                         }
 
+
+
                         <td>@schedule.State</td>
 
                         @{
@@ -59,7 +68,7 @@
                             {
                                 <td>@Html.ActionLink("Conclude", "AcceptSchedule", "Admin", new { id = schedule.Id, state = "Concluded" }, new { @class = "btn btn-primary" })</td>
                             }
-                            else if  (schedule.State == "Concluded")
+                            else if (schedule.State == "Concluded")
                             {
                                 <td>@Html.ActionLink("Reopen", "AcceptSchedule", "Admin", new { id = schedule.Id, state = "Reopened" }, new { @class = "btn btn-primary" })</td>
 
@@ -72,14 +81,19 @@
                         }
                         <td>@Html.ActionLink("Delete", "DeleteSchedule", "Admin", new { id = schedule.Id }, new { @class = "btn btn-primary" })</td>
 
+                        <td>@schedule.Observations</td>
 
-
+                        <td>@schedule.TypesOfServices.ServiceType</td>
+                        <td>@schedule.TypesOfServices.Duvet</td>
+                        <td>@schedule.TypesOfServices.Blanket</td>
+                        <td>@schedule.TypesOfServices.Carpet</td>
+                        
                     </tr>
 
                 }
                 </tbody>
             </table>
-        }
+        }   
     }
 
 }

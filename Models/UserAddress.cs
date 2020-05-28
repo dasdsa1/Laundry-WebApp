@@ -13,7 +13,6 @@ namespace WebApplication3.Models
 
         public string ApplicationUserId { get; set; }
 
-        
     }
     
 }

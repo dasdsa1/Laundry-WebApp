@@ -10,32 +10,28 @@ namespace WebApplication3.ViewModels
     public class EditScheduleViewModel
     {
 
-        public int Id { get; set; }
-
-        public DateTime ScheduledTime { get; set; }
-
-
-        public string ApplicationUserId { get; set; }
-
-        public DateTime RequestTime { get; set; }
-
-        public UserAddress UserAddress { get; set; }
-
-        public byte UserAddressId { get; set; }
+        public Schedule Schedule { get; set; }
+       
 
         public IEnumerable<UserAddress> UserAddresses { get; set; }
+
+       
 
 
         public EditScheduleViewModel(Schedule schedule, IEnumerable<UserAddress> addresses)
         {
+            Schedule = new Schedule
+            {
 
-            Id = schedule.Id;
-            ScheduledTime = schedule.ScheduledTime;
-            ApplicationUserId = schedule.ApplicationUserId;
-            RequestTime = schedule.RequestTime;
-            UserAddressId = schedule.UserAddressId;
+                Id = schedule.Id,
+                ScheduledTime = schedule.ScheduledTime,
+                ApplicationUserId = schedule.ApplicationUserId,
+                RequestTime = schedule.RequestTime,
+                UserAddressId = schedule.UserAddressId,
+                Observations = schedule.Observations
+            };
+
             UserAddresses = addresses;
-
 
         }
 

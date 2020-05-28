@@ -36,16 +36,14 @@ namespace WebApplication3.Controllers
 
             var currentUser = this.User;
             
-            var currentUserID = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var currentUserId = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
 
-            var userAddresses = _context.Addresses.ToList().Where(m => m.ApplicationUserId == currentUserID);
+            var userAddresses = _context.Addresses.ToList().Where(m => m.ApplicationUserId == currentUserId);
 
             var viewModel = new ScheduleViewModel()
             {
                 Schedule = new Schedule(),
                 UserAddresses = userAddresses
-               
-
             };
 
             return View(viewModel);
@@ -56,9 +54,9 @@ namespace WebApplication3.Controllers
         public IActionResult Edit(int id)
         {
             var currentUser = this.User;
-            var currentUserID = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var currentUserId = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
 
-            var oldAddresses = _context.Addresses.ToList().Where(m => m.ApplicationUserId == currentUserID);
+            var oldAddresses = _context.Addresses.ToList().Where(m => m.ApplicationUserId == currentUserId);
 
             var schedule = _context.Schedules.Include(c => c.UserAddress).SingleOrDefault(m => m.Id == id);
 
@@ -67,50 +65,48 @@ namespace WebApplication3.Controllers
             return View("Edit", viewModel);
         }
 
-        [Authorize]
-        public IActionResult EditAddress(int id)
-        {
-            var currentUser = this.User;
-            var currentUserId = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
+      
 
-            var userAddress = _context.Addresses.Single(w => w.Id == id);
-
-            var viewModel = new NewAddressViewModel
-            {
-                UserAddress = userAddress
-            };
-
-            return View("NewAddress", viewModel);
-        }
 
 
         [Authorize]
         [HttpPost]
         public IActionResult Save(Schedule schedule)
         {
+            //schedule.ScheduledTime.TryParse
             var currentUser = this.User;
             var currentUserId = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
-
+            
+          
             var oldAddresses = _context.Addresses.ToList().Where(m => m.ApplicationUserId == currentUserId);
 
            
             if (!ModelState.IsValid)
             {
-                var viewModel = new EditScheduleViewModel(schedule, oldAddresses);
+                var viewModel = new ScheduleViewModel(schedule, oldAddresses);
                
-                return View("Edit", viewModel);
+                return View("Index", viewModel);
+                
             }
             if (schedule.Id == 0)
             {
                 var scheduleUser = _context.ApplicationUsers.ToList().Single(c => c.Id == currentUserId);
                 var scheduleUserName = scheduleUser.FirstName + " " + scheduleUser.LastName;
 
-                
+                schedule.LastModifiedUserId = currentUserId;
                 schedule.State = "New";
                 schedule.ApplicationUserId = currentUserId;
                 schedule.RequestTime = DateTime.Now;
                 schedule.Name = scheduleUserName;
+                schedule.TypesOfServicesId = 1;
+                schedule.TypeOfClient = _context.ApplicationUsers.ToList().Single(m => m.Id == currentUserId).ClientType;
                 _context.Schedules.Add(schedule);
+
+                _context.SaveChanges();
+
+
+                return RedirectToAction("SendScheduleRegisterEmail", "EMail", new { id = schedule.Id, name = schedule.Name });
+
             }
             else
             {
@@ -123,15 +119,24 @@ namespace WebApplication3.Controllers
 
                 scheduleInDb.RequestTime = DateTime.Now;
 
-                scheduleInDb.ApplicationUserId = currentUserId;
+                scheduleInDb.LastModifiedUserId = currentUserId;
 
                 scheduleInDb.Id = schedule.Id;
 
                 scheduleInDb.State = "Edited";
+
+                scheduleInDb.TypesOfServicesId = 1;
+
+                _context.SaveChanges();
+
+
+                return RedirectToAction("SendEditEmail", "EMail", new { id = schedule.Id, name = scheduleInDb.Name });
+
             }
 
-            _context.SaveChanges();
-            return RedirectToAction("UserScheduleList", "Schedule");
+            
+
+
         }
 
         [Authorize]
@@ -145,6 +150,8 @@ namespace WebApplication3.Controllers
             var currentUserID = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
             var userSchedules = _context.Schedules.Include(c => c.UserAddress).ToList()
                 .Where(m => m.ApplicationUserId == currentUserID);
+
+
             var userAddresses = _context.Addresses.ToList().Where(c=> c.ApplicationUserId == currentUserID);
 
             var viewModel = new ScheduleListViewModel
@@ -158,44 +165,10 @@ namespace WebApplication3.Controllers
             return View(viewModel);
         }
 
-        [Authorize]
-        public IActionResult SaveAddress(UserAddress userAddress)
-        {
-            if (!ModelState.IsValid)
-            {
-                var viewModel = new NewAddressViewModel
-                {
-                    UserAddress = userAddress
-                };
+       
+        
 
-                return View("NewAddress", viewModel);
-            }
-
-            if (userAddress.Id == 0)
-            {
-                var currentUser = this.User;
-                var currentUserId = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
-                userAddress.ApplicationUserId = currentUserId;
-
-                _context.Addresses.Add(userAddress);
-            }
-            else
-            {
-                var addressInDb = _context.Addresses.Single(m => m.Id == userAddress.Id);
-                addressInDb.Address = userAddress.Address;
-                
-            }
-            _context.SaveChanges();
-
-            return RedirectToAction("UserScheduleList", "Schedule");
-        }
-
-        [Authorize]
-        public IActionResult NewAddress()
-        {
-            var newAddress = new NewAddressViewModel();
-            return View(newAddress);
-        }
+      
 
         
         [Authorize]
@@ -215,37 +188,8 @@ namespace WebApplication3.Controllers
 
         }
 
-        [Authorize]
-        public IActionResult DeleteAddress(int id)
-        {
-            var addressInDb = _context.Addresses.Single(c => c.Id == id);
+      
 
-            if (addressInDb == null)
-                return BadRequest();
-
-            _context.Addresses.Remove(addressInDb);
-            _context.SaveChanges();
-
-            
-
-            return RedirectToAction("AdddressList");
-        }
-
-        [Authorize]
-        public IActionResult AdddressList()
-        {
-            var currentUser = this.User;
-            var currentUserId = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
-
-            var userAddresses = _context.Addresses.ToList().Where(c => c.ApplicationUserId == currentUserId);
-            
-            var addressList = new AddressListViewModel
-            {
-                Addresses = userAddresses
-            };
-
-            return View(addressList);
-        }
 
     }
           

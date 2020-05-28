@@ -38,6 +38,17 @@
                 <span asp-validation-for="Input.LastName" class="text-danger"></span>
             </div>
 
+            <div>
+                <label for="Input.ClientType">Empresarial</label>
+                <input id="Input.ClientType" name="Input.ClientType" type="radio" value="Empresarial" />
+                <label for="Input.ClientType">Pessoal</label>
+                <input name="Input.ClientType" type="radio" value="Pessoal" />
+                <span asp-validation-for="Input.ClientType" class="text-danger"></span>
+            </div>
+
+
+        
+
 
             <button type="submit" class="btn btn-primary">Register</button>
         </form>

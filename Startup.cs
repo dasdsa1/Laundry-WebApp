@@ -13,6 +13,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WebApplication3.Models;
+using WebApplication3.Features.Messaging;
+using Microsoft.AspNetCore.Mvc.Razor;
+using WebApplication3.Infrastructure;
+using WebApplication3.Services;
 
 namespace WebApplication3
 {
@@ -33,13 +37,22 @@ namespace WebApplication3
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddTransient<IMessageService, MessageService>();
+
+            services.Configure<RazorViewEngineOptions>(x => x.ViewLocationExpanders.Add(new ViewLocationExpander()));
+
+            services.AddTransient<IViewRenderer, ViewRenderer>();
+
+            services.AddScoped<IEmailSender, EmailSender>();
+
             services.AddControllersWithViews();
             services.AddRazorPages();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
+        {   
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -51,6 +64,7 @@ namespace WebApplication3
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            //app.UseMiddleware<ExceptionLoggingMiddleware>();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

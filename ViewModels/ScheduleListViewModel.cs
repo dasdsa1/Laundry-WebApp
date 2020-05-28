@@ -12,6 +12,8 @@ namespace WebApplication3.ViewModels
 
         public IEnumerable<UserAddress> Addresses { get; set; }
 
+        
+
     }
 
     

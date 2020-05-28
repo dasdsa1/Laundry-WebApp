@@ -23,10 +23,29 @@ namespace WebApplication3
         public IEnumerable<UserAddress> UserAddresses { get; set; }
 
         public Schedule Schedule { get; set; }
-        
-       
 
-       
+        public ScheduleViewModel()
+        {
+
+        }
+
+        public ScheduleViewModel(Schedule schedule, IEnumerable<UserAddress> addresses)
+        {
+            Schedule = new Schedule
+            {
+                Id = schedule.Id,
+                ScheduledTime = schedule.ScheduledTime,
+                ApplicationUserId = schedule.ApplicationUserId,
+                RequestTime = schedule.RequestTime,
+                UserAddressId = schedule.UserAddressId
+
+            };
+            
+            UserAddresses = addresses;
+
+
+        }
+
 
         public string Title
         {

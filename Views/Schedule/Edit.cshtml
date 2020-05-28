@@ -17,44 +17,80 @@
 @using (Html.BeginForm("Save", "Schedule"))
 {
     <h1>Edit Schedule</h1>
+    <p>Original ScheduledTime: @Model.Schedule.ScheduledTime</p>
+
+    /*Default value for ScheduledTime is not working.*/
     <div class="form-group">
-
-        @Html.LabelFor(m => m.ScheduledTime)
-
-        @Html.TextBoxFor(m => m.ScheduledTime, "{0:d MMM yyyy}", new { @class = "form-control" })
-
-        @Html.ValidationMessageFor(m => m.ScheduledTime)
+        <label for="ScheduledTime">Pickup Date and Time:</label>
+        <input type="datetime-local" id="ScheduledTime" name="Schedule.ScheduledTime" placeholder="@Model.Schedule.ScheduledTime">
 
     </div>
+
+    <div class="form-group">
+        <label for="Observations">Observations:</label>
+        <input type="text" id="Observations" name="Observations" size="100" placeholder="@Model.Schedule.Observations">
+    </div>
+
+    <div class="form-group">
+
+        <label for="Schedule.TypesOfServices.ServiceType">Premium</label>
+        <input type="radio" name="Schedule.TypesOfServices.ServiceType" value="Premiun" />
+        <p>
+            <label for="Schedule.TypesOfServices.ServiceType">Home Made</label>
+            <input type="radio" name="Schedule.TypesOfServices.ServiceType" value="Home Made" />
+        </p>
+        <p>
+            <label for="Schedule.TypesOfServices.ServiceType">Low Cost</label>
+            <input type="radio" name="Schedule.TypesOfServices.ServiceType" value="Low Cost" />
+        </p>
+       
+    </div>
+    <div class="form-group">
+        <label for="Schedule.TypesOfServices.Duvet">Duvet</label>
+        <input type="checkbox" name="Schedule.TypesOfServices.Duvet" value="true" />
+        <p>
+            <label for="Schedule.TypesOfServices.Blanket">Blanket</label>
+            <input type="checkbox" name="Schedule.TypesOfServices.Blanket" value="true" />
+        </p>
+        <p>
+            <label for="Schedule.TypesOfServices.Carpet">Carpet</label>
+            <input type="checkbox" name="Schedule.TypesOfServices.Carpet" value="true" />
+        </p>
+        
+
+    </div>
+
+
+
 
     if (!Model.UserAddresses.Any())
     {
         <p>No addresses yet, please add an address.</p>
-        <div>
-            @Html.ActionLink("Add Address", "NewAddress", "Schedule", null, new { @class = "btn btn-primary" })
+        <div class="form-group">
+            @Html.ActionLink("Add Address", "NewAddress", "Address", null, new { @class = "btn btn-primary" })
         </div>
     }
 
     else
     {
+
+
         <div class="form-group">
-            @Html.LabelFor(m => m.UserAddressId)
-            @Html.DropDownListFor(m => m.UserAddressId, new SelectList(Model.UserAddresses, "Id", "Address"), "Select Address", new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.UserAddressId)
+            @Html.LabelFor(m => m.Schedule.UserAddressId)
+            @Html.DropDownListFor(m => m.Schedule.UserAddressId, new SelectList(Model.UserAddresses, "Id", "Address"), "Select Address", new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Schedule.UserAddressId)
         </div>
     }
 
-
-
-    @Html.HiddenFor(m => m.Id)
-    @Html.HiddenFor(m => m.ApplicationUserId)
-    @Html.HiddenFor(m=> m.UserAddress.ApplicationUserId)
-
+    <div class="form-group">
+        @Html.HiddenFor(m => m.Schedule.Id)
+        @Html.HiddenFor(m => m.Schedule.ApplicationUserId)
+    </div>
 
 
 
 
-    <div>
+    <div class="form-group">
         <p><button type="submit" class="btn btn-primary">Save</button></p>
     </div>
 }

@@ -4,10 +4,12 @@ using System.Linq;
 using System.Security.Claims;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApplication3.Data;
 using WebApplication3.Models;
+using WebApplication3.Services;
 using WebApplication3.ViewModels;
 
 namespace WebApplication3.Controllers
@@ -26,16 +28,20 @@ namespace WebApplication3.Controllers
             base.Dispose(disposing);
         }
         
+
+        [Authorize]
         public IActionResult Index()
         {
-            var scheduleList = _context.Schedules.Include(c => c.UserAddress).ToList();
+            var scheduleList = _context.Schedules.Include(c => c.TypesOfServices).ToList();
+            
 
             var addressList = _context.Addresses.ToList();
 
             var viewModel = new ScheduleListViewModel
             {
                 UserSchedulesList = scheduleList,
-                Addresses = addressList
+                Addresses = addressList,
+              
             };
 
             return View(viewModel);
@@ -47,9 +53,11 @@ namespace WebApplication3.Controllers
 
             scheduleInDb.State = state;
 
+            
+
             _context.SaveChanges();
 
-            return RedirectToAction("Index");
+            return RedirectToAction("SendStateChangeEmail", "EMail", new { Id = id, State = state});
         }
 
         
@@ -70,15 +78,17 @@ namespace WebApplication3.Controllers
 
         }
 
-        [Route("/schedule/adminEdit/{id}")]
+        //modified route
+        [Route("/admin/edit/{id}")]
         public IActionResult Edit(int id)
         {
             var currentUser = this.User;
+
             var currentUserId = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
-
-            var oldAddresses = _context.Addresses.ToList().Where(m => m.ApplicationUserId == currentUserId);
-
+            
             var schedule = _context.Schedules.Include(c => c.UserAddress).SingleOrDefault(m => m.Id == id);
+
+            var oldAddresses = _context.Addresses.ToList().Where(m => m.ApplicationUserId == schedule.ApplicationUserId);
 
             var viewModel = new EditScheduleViewModel(schedule, oldAddresses);
 
@@ -91,12 +101,17 @@ namespace WebApplication3.Controllers
             var currentUser = this.User;
             var currentUserId = currentUser.FindFirst(ClaimTypes.NameIdentifier).Value;
 
-            var oldAddresses = _context.Addresses.ToList().Where(m => m.ApplicationUserId == currentUserId);
+            if (schedule.ApplicationUserId == null)
+            {
+                schedule.ApplicationUserId = currentUserId;
+            }
+           
+            var userAddresses = _context.Addresses.ToList().Where(m => m.ApplicationUserId == schedule.ApplicationUserId);
 
 
             if (!ModelState.IsValid)
             {
-                var viewModel = new EditScheduleViewModel(schedule, oldAddresses);
+                var viewModel = new EditScheduleViewModel(schedule, userAddresses);
 
                 return View("Edit", viewModel);
             }
@@ -104,7 +119,7 @@ namespace WebApplication3.Controllers
             {
 
                 schedule.State = "New";
-                schedule.ApplicationUserId = currentUserId;
+                schedule.LastModifiedUserId = currentUserId;
                 schedule.RequestTime = DateTime.Now;
 
                 _context.Schedules.Add(schedule);
@@ -114,13 +129,13 @@ namespace WebApplication3.Controllers
 
                 var scheduleInDb = _context.Schedules.Include(c => c.UserAddress).Single(c => c.Id == schedule.Id);
 
-                scheduleInDb.UserAddressId = schedule.UserAddressId;
+                scheduleInDb.LastModifiedUserId = schedule.LastModifiedUserId;
 
                 scheduleInDb.ScheduledTime = schedule.ScheduledTime;    
 
-                scheduleInDb.RequestTime = DateTime.Now;
+                scheduleInDb.RequestTime = DateTime.Now;    
 
-                scheduleInDb.ApplicationUserId = currentUserId;
+                //scheduleInDb.ApplicationUserId = currentUserId;
 
                 scheduleInDb.Id = schedule.Id;
 

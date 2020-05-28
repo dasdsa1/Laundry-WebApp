@@ -20,6 +20,8 @@ namespace WebApplication3.Data
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
 
         public DbSet<UserAddress> Addresses { get; set; }
+
+        public DbSet<TypesOfServices> Services { get; set; }
         
     }
 }
