@@ -14,13 +14,13 @@ namespace WebApplication3.Infrastructure
         private readonly IMessageService _messageService;
         private readonly RequestDelegate _next;
 
-        public ExceptionLoggingMiddleware(RequestDelegate next, IHostingEnvironment env, IMessageService messageService)
+        /*public ExceptionLoggingMiddleware(RequestDelegate next, IHostingEnvironment env, IMessageService messageService)
         {
             _env = env;
             _messageService = messageService;
             _next = next;
 
-        }
+        }*/
 
         public async Task Invoke(HttpContext context)
         {

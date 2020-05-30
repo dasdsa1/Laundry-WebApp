@@ -14,6 +14,7 @@ using WebApplication3.ViewModels;
 
 namespace WebApplication3.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         public ApplicationDbContext _context;
