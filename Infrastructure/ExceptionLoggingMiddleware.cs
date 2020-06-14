@@ -22,7 +22,7 @@ namespace WebApplication3.Infrastructure
 
         }*/
 
-        public async Task Invoke(HttpContext context)
+    public async Task Invoke(HttpContext context)
         {
             try
             {
@@ -41,4 +41,5 @@ namespace WebApplication3.Infrastructure
         }
 
     }
+    
 }

@@ -175,7 +175,7 @@ namespace WebApplication3.Controllers
             {
                 var user = await userManager.FindByIdAsync(model[i].UserId);
 
-                IdentityResult result = null;
+                IdentityResult result;
 
                 if (model[i].IsSelected && !(await userManager.IsInRoleAsync(user, role.Name)))
                 {
@@ -208,6 +208,24 @@ namespace WebApplication3.Controllers
             return RedirectToAction("EditRole", new { Id = roleId });
         }
 
+       
+        public async Task<IActionResult> DeleteRole(EditRoleViewModel model)
+        {
+            var role = await roleManager.FindByIdAsync(model.Id);
+
+            if (role == null)
+            {
+                ViewBag.ErrorMessage = $"Role with id = {model.Id} could not be found";
+                return View("NotFound");
+            }
+            else
+            {
+                await roleManager.DeleteAsync(role);
+
+                return RedirectToAction("ListRoles");
+            }
+       
+        }
 
             
 

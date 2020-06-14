@@ -1,8 +1,215 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="~/css/site.css">
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <style>
+        #map {
+            height: 400px; 
+            display: none;
+        }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+
+
+
+        #myButton {
+            position: relative;
+        }
+
+        h1 {
+            position: relative;
+            color: #1b6ec2;
+            width: 100%;
+            font-size: 400%;
+        }
+
+       
+        
+
+        footer {
+            position: relative;
+
+        }
+
+    </style>
+</head>
+<body class="frontPage">
+
+    <img class=" topImage" id="topImage" src="~/Images/Secagem1.jpg" />
+
+    <h1>Bem vindo a  WashStation Gaia!</h1>
+    <h2>Tempo para o mais importante.</h2>
+    <div class="row1">
+        <div class="leftColumn">Conforto e Facilidade para o seu dia a dia.</div>
+        <div class="rightColumn">Pré-Lavagem incluída em todos os programas.<br /> Detergente, Amaciador, Higienizente e Oxi incluídos em todas as lavagens.</div>
+
+    </div>
+
+    <div class="row1">
+        <div class="leftColumn"><btn id="myButton" class="btn btn-primary">Como chegar:</btn></div>
+        <div id="map"></div>
+    </div>
+
+    <div class="row1">
+        <div class="leftColumn">
+            Usufrua de todos os benefícios com o nosso cartão cliente.
+        </div>
+        <div class="rightColumn">Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.</div>
+    </div>
+
+
+
+    <div class="row1">
+        <div><btn id="instrucoesBtn" class="btn btn-primary">Instrucoes de uso:</btn></div>
+        <div><img src="~/Images/Instrucoes.jpg" style="position: center; width:50%; height: 50%; display: none" id="instrucoes" /></div>
+    </div>
+
+
+
+    <div class="row1">
+        <div><btn id="contactBtn" class="btn btn-primary">Contacte-nos:</btn></div>
+        <div id="sendEmail" style="display: none">
+
+            @using (Html.BeginForm("ReceiveEmailFromUser", "EMail"))
+            {
+
+                <div>
+
+                    <label>Seu Email:</label>
+
+                    <input name="senderEmail" placeholder="Seu Email" style="width:100%;" />
+
+                    <label>Assunto</label>
+
+                    <input name="subject" placeholder="Assunto" style="width:100%;" />
+
+                    <label>Message</label>
+
+                    <textarea name="body" placeholder="Mensagem:" style="width:100%;height:150px;overflow:hidden;"></textarea>
+
+                    <button class="btn btn-primary" type="submit">Send</button>
+
+                </div>}
+
+
+        </div>
+    </div>
+    <div class="row1">
+        <div>Tincidunt integer eu augue augue nunc elit dolor.</div>
+        <div>Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.</div>
+    </div>
+    <div class="row1">
+        <div>Tincidunt integer eu augue augue nunc elit dolor.</div>
+        <div>Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.</div>
+    </div>
+    <div class="row1">
+        <div>Tincidunt integer eu augue augue nunc elit dolor.</div>
+        <div>Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.</div>
+    </div>
+    <div class="row1">
+        <div>Tincidunt integer eu augue augue nunc elit dolor.</div>
+        <div>Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.</div>
+    </div>
+    <div class="row1">
+        <div>Tincidunt integer eu augue augue nunc elit dolor.</div>
+        <div>Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.</div>
+    </div>
+    <div class="row1">
+        <div>Tincidunt integer eu augue augue nunc elit dolor.</div>
+        <div>Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.</div>
+    </div>
+    <div class="row1">
+        <div>Tincidunt integer eu augue augue nunc elit dolor.</div>
+        <div>Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.</div>
+    </div>
+
+
+    <!--The div element for the map -->
+
+    <script>
+        // Initialize and add the map
+        function initMap() {
+            // The location of Uluru
+
+
+            var uluru = { lat: 41.1296523, lng: -8.6050843 };
+            // The map, centered at Uluru
+            var map = new google.maps.Map(
+                document.getElementById('map'), { zoom: 4, center: uluru });
+            // The marker, positioned at Uluru
+            var marker = new google.maps.Marker({ position: uluru, map: map });
+        }
+    </script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmjzfjdxRmynLDI-0EKKjDCj0MG6dVDR0&callback=initMap">
+    </script>
+
+
+
+</body>
+
+
+</html>
+
+<script>
+    $(function () {
+
+        $('#myButton').on('click', function () {
+            $('#map').toggle();
+
+        });
+
+    });
+
+    $(function () {
+
+    $('#instrucoesBtn').on('click', function () {
+        $('#instrucoes').toggle();
+
+    });
+
+});
+
+    $(function () {
+
+        $('#contactBtn').on('click', function () {
+            $('#sendEmail').toggle();
+
+        });
+
+    });
+
+    $(document).ready(function () {
+
+        
+
+    var imgArr = [];
+    imgArr[0] = "../../Images/Secagem1.jpg";
+    imgArr[1] = "../../Images/Outside1.jpg";
+    imgArr[2] = "../../Images/Outside2.jpg";
+        
+
+    let i = 0;
+
+       
+
+
+    setInterval(function () {
+
+        if (i >= imgArr.length -1) { i = 0 }
+        else {i++}
+
+        $('#topImage').fadeOut(1000, function () {$('#topImage').attr("src", imgArr[i])}).fadeIn(2000);
+            
+
+    }, 6000);
+        
+            
+        
+    
+})
+
+</script>

@@ -6,15 +6,16 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - WebApplication3</title>
+    <title>@ViewData["Title"] - WashStation Gaia.</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light mb-3e headerImage">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Online Scheduler.</a>
+                <div style="position: relative; right: 15%"><img src="~/Images/EC_Logotipo_Azul_100px.png" height="130" width="100" /></div>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/Images/WS_Logo_transparent.png" height="150" width="150" alt="Home"/></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -22,16 +23,16 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <partial name="_LoginPartial" />
                     <ul class="navbar-nav flex-grow-1">
-                        
+
                         @{
                             if (signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
                             {
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">Admin</a>
+                                <li class="nav-item ">
+                                    <a class="header-letters" asp-area="" asp-controller="Admin" asp-action="Index">Admin</a>
                                 </li>
 
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Role" asp-action="ListRoles">Roles</a>
+                                <li class="nav-item ">
+                                    <a class="header-letters" asp-area="" asp-controller="Role" asp-action="ListRoles">Roles</a>
                                 </li>
 
                             }
@@ -42,14 +43,20 @@
 
 
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="header-letters" asp-area="" asp-controller="Home" asp-action="Privacy">Privacidade</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Schedule" asp-action="Index">New Schedule</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Schedule" asp-action="UserScheduleList">Your schedules.</a>
-                        </li>
+                        @{
+                            if (signInManager.IsSignedIn(User))
+                            {
+                                <li class="nav-item ">
+                                    <a class="header-letters" asp-area="" asp-controller="Schedule" asp-action="Index">New Schedule</a>
+                                </li>
+                                <li class="nav-item ">
+                                    <a class="header-letters" asp-area="" asp-controller="Schedule" asp-action="UserScheduleList">Your schedules.</a>
+                                </li>
+                            }
+                        }
+
                     </ul>
                 </div>
             </div>
@@ -61,7 +68,7 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="border-top footer text-muted bg-white">
         <div class="container">
             &copy; 2020 - WebApplication3 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>

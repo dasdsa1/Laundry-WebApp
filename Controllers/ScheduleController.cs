@@ -19,7 +19,7 @@ namespace WebApplication3.Controllers
 {
     public class ScheduleController : Controller
     {
-        private ApplicationDbContext _context;
+        private readonly ApplicationDbContext _context;
 
         public ScheduleController(ApplicationDbContext context)
         {
@@ -189,7 +189,10 @@ namespace WebApplication3.Controllers
         }
 
       
-
+        public IActionResult TestHtml()
+        {
+            return View();
+        }
 
     }
           

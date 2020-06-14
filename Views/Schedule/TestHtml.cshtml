@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Css Grid</title>
+    <link rel="stylesheet" type="text/css" href="~/css/site.css">
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/js/scripts.js"></script>
+
+    <style>
+
+        body {
+            background-image: none;
+        }
+
+        #topImage {
+            position: center;
+            top: 10%;
+            left: 10%;
+            z-index: -1;
+            height: 100%;
+            width: 100%
+        }
+
+        .row {
+            margin: 20px auto;
+            max-width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr; /* Size of items defined inside container */
+        }
+
+            .row div {
+                border: 1px dashed gray;
+                text-align: center;
+                padding: 12px;
+            }
+    </style>
+</head>
+<body>
+    <!--
+    <div class="row1" style="max-height:100%; max-width:100%"><img id="img" src="startpicture.jpg" /></div>
+    <button type="button" onclick="displayPreviousImage()">Previous</button>
+    <button type="button" onclick="displayNextImage()">Next</button>
+    -->
+    <div id="myBanner" style="max-height: 100px; max-width: 200px;">
+        <img id="myImg" src="~/Images/Secagem1.jpg"/>
+       
+    </div>
+    
+
+
+    <div class="row">
+        <div>Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.</div>
+        <div>Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.</div>
+        <div>Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.</div>
+        <div>Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.</div>
+    </div>
+    <div class="row">
+        <div>Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.</div>
+        <div>Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.</div>
+        <div>Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.</div>
+        <div>Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit, vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.</div>
+    </div>
+
+
+</body>
+</html>
+
+<script>
+
+</script>
+<!--
+<script>
+    function displayNextImage() {
+        x = (x === images.length - 1) ? 0 : x + 1;
+        document.getElementById("img").
+              document.getElementById("img").src = images[x];
+          }
+
+          function displayPreviousImage() {
+              x = (x <= 0) ? images.length - 1 : x - 1;
+              document.getElementById("img").src = images[x];
+          }
+
+          function startTimer() {
+              setInterval(displayNextImage, 3000);
+          }
+
+          var images = [], x = -1;
+          images[0] = "../../Images/Secagem1.jpg";
+          images[1] = "../../Images/Outside1.jpg";
+          images[2] = "../../Images/Outside2.jpg";
+</script>
+-->

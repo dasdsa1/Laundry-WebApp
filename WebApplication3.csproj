@@ -32,7 +32,23 @@
 
   <ItemGroup>
     <Folder Include="Data\Migrations\" />
+    <Folder Include="wwwroot\Images\" />
     <Folder Include="Views\Email\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\Images\Caixa.jpg" />
+    <None Include="wwwroot\Images\Instrucoes.jpg" />
+    <None Include="wwwroot\Images\Lavagem.jpg" />
+    <None Include="wwwroot\Images\Letreiro1.jpg" />
+    <None Include="wwwroot\Images\Letreiro2.jpg" />
+    <None Include="wwwroot\Images\Logo Wash Station.png" />
+    <None Include="wwwroot\Images\Logo WS Gaia 1.jpg" />
+    <None Include="wwwroot\Images\Logo WS Gaia.jpg" />
+    <None Include="wwwroot\Images\Logo WS.jpg" />
+    <None Include="wwwroot\Images\Outside1.jpg" />
+    <None Include="wwwroot\Images\Outside2.jpg" />
+    <None Include="wwwroot\Images\Secagem1.jpg" />
   </ItemGroup>
 
 </Project>

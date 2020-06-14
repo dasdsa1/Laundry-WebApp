@@ -41,7 +41,7 @@ namespace WebApplication3
 
 
 
-            services.AddTransient<IMessageService, MessageService>();
+            //services.AddTransient<IMessageService, MessageService>();
 
             services.Configure<RazorViewEngineOptions>(x => x.ViewLocationExpanders.Add(new ViewLocationExpander()));
 

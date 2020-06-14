@@ -8,15 +8,14 @@
 
 @if (Model.Any())
 {
-    <a class="button btn-primary" style="width:auto"
-       asp-controller="Role" asp-action="CreateRole">Create Role</a>
+   
     @foreach (var role in Model)
     {
         <h3>Role</h3>
         <p>@role.Name</p>
         
         <a class="button btn-primary" asp-action="EditRole" asp-controller="Role"asp-route-id="@role.Id">Edit</a>
-        <a class="button btn-primary" asp-action="Delete" asp-controller="Role" asp-route-id="@role.Id">Delete</a>
+        <a class="button btn-primary" asp-action="DeleteRole" asp-controller="Role" asp-route-id="@role.Id">Delete</a>
     }
     <p></p>
     <a class="button btn-primary" style="width:auto"

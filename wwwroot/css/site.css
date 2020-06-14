@@ -8,15 +8,15 @@ a.navbar-brand {
 }
 
 /* Provide sufficient contrast against white background */
-a {
-  color: #0366d6;
-}
+
 
 .btn-primary {
   color: #fff;
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
+
+
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
   color: #fff;
@@ -56,14 +56,12 @@ button.accept-policy {
 html {
   position: relative;
   min-height: 100%;
+
 }
 
-body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
-}
+
 .footer {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   width: 100%;
   white-space: nowrap;
@@ -71,10 +69,179 @@ body {
 }
 
 .field-validation-error {
-    color: red
-}
-
- {
+    color: red;
     border: 2px solid red
 }
- 
+
+h1 {
+    color: #223556
+}
+
+label {
+    font-size: 100%;
+    color: #4182e5;
+    font-weight: bold;
+}
+
+details {
+    color: #d4d3fe;
+    font-size: 80%
+}
+
+p {
+    font-size: 90%;
+    color: #223556
+}
+
+
+h2 {
+    font-size: 250% ;
+    color: #223556;
+}
+
+
+textarea {
+    min-height: 10%;
+    max-height: 50%;
+    width: 50%
+}
+
+div.form-group {
+    background-position: right;
+    position: relative;
+    right: 7%
+}
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.TableDisplay {
+    color: white
+}
+
+.ScheduleStatus{
+    color: red;
+}
+
+th{
+    color: white;
+    font-weight: bold;
+}
+
+#topImage {
+    position: relative;
+    right: 50%;
+    z-index: -1;
+    height: 150%;
+    width: 190%;
+    bottom: 10%;
+    
+    
+    
+}
+
+.row1 {
+    margin: 20px auto;
+    max-width: 100%;
+    display: grid;
+    padding: 30px;
+    column-gap: 20px;
+    grid-template-columns: 2fr 5fr ; /* Size of items defined inside container */
+}
+
+.fullRow {
+    margin: 20px auto;
+    max-width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.row1 div {
+    
+}
+
+.header-letters {
+    color: #007a8f;
+    padding: 20px;
+    font-weight:900;
+    font-size: 120%;
+    
+}
+
+body {
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 2), rgba(0, 0, 0, 0.0) ), url('../Images/Secagem3.png');
+}
+
+.frontPage {
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.75) ), url('../Images/Waves3.jpg');
+    overflow-x: hidden;
+    background-attachment: fixed;
+    min-height: 500px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+
+.leftColumn {
+    font-size: 130%;
+    color: #004f9d;
+    font-weight: bold;
+
+}
+
+.rightColumn {
+    color: #223556;
+    font-size: 105%;
+    font-weight: bold;
+}
+
+h3 {
+    color: #1b6ec2;
+}
+
+.headerImage {
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8) ), url("../Images/background_Waves.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+td{
+    color: aliceblue;
+}

@@ -4,66 +4,85 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>UserScheduleList</h1>
+    <head>
+        <meta name="viewport" content="width=devicewidth,initial-scale=1.0" charset="utf-8" />
+        <link rel="stylesheet" type="text/css" href="~/css/site.css">
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <style>
+            body{
+                background-image: linear-gradient(to right, rgba(0, 0, 0, 2), rgba(0, 0, 0, 0.0) ), url('../Images/Secagem3.png');
+                
 
-@Html.ActionLink("Add Schedule", "Index", "Schedule", null, new { @class = "btn btn-primary" })
+            }
 
-@Html.ActionLink("Add Address", "NewAddress", "Address", null, new { @class = "btn btn-primary" })
+            td{
+                font-weight: bold;
+            }
+        </style>
+    </head>
 
-@Html.ActionLink("Manage Addresses", "AddressList", "Address", null, new { @class = "btn btn-primary" })
+    <body>
+        <h1>UserScheduleList</h1>
 
-@{
-    if (!Model.UserSchedulesList.Any())
-    {
-        <p></p>
-        <p>No schedules available, please schedule your first request!</p>
-        <p></p>
-    }
-    else
-    {
-        @if (!Model.Addresses.Any())
-        {
-            <p>Please add an address.</p>
-        }
-        else
-        {
-            <table class="table table-bordered table-hover">
-                <thead>
-                <tr>
-                    <th>Schedule ID</th>
-                    <th>Schedule</th>
-                    <th>Address</th>
-                    <th>Status</th>
-                    <th>Delete Schedule</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach (var schedule in Model.UserSchedulesList)
+        @Html.ActionLink("Add Schedule", "Index", "Schedule", null, new { @class = "btn btn-primary" })
+
+        @Html.ActionLink("Add Address", "NewAddress", "Address", null, new { @class = "btn btn-primary" })
+
+        @Html.ActionLink("Manage Addresses", "AddressList", "Address", null, new { @class = "btn btn-primary" })
+
+        @{
+            if (!Model.UserSchedulesList.Any())
+            {
+                <p></p>
+                <p>No schedules available, please schedule your first request!</p>
+                <p></p>
+            }
+            else
+            {
+                @if (!Model.Addresses.Any())
                 {
-                    <tr>
-                        <td>@schedule.Id</td>
-                        <td>@Html.ActionLink(schedule.ScheduledTime.ToLongDateString(), "Edit", "Schedule", new { id = schedule.Id }, null)</td>
-                        @{
-                            if (Model.Addresses.SingleOrDefault(c => c.Id == schedule.UserAddressId) == null)
-                            {
-                                                <td>"No address available, please edit the schedule."</td>
-                            }
-                            else
-                            {
-                                <td>@Model.Addresses.SingleOrDefault(c => c.Id == schedule.UserAddressId).Address</td>
-                            }
-                    
-                        }
-                        <td>@schedule.State</td>
-                        
-                        <td>@Html.ActionLink("Delete Schedule", "DeleteSchedule", "Schedule", new { id = schedule.Id }, new { @class = "btn btn-primary" })</td>
-                    </tr>
-
+                    <p>Please add an address.</p>
                 }
-                </tbody>
-            </table>
+                else
+                {
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Schedule ID</th>
+                                <th>Schedule</th>
+                                <th>Address</th>
+                                <th>Status</th>
+                                <th>Delete Schedule</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var schedule in Model.UserSchedulesList)
+                            {
+                                <tr>
+                                    <td class="TableDisplay">@schedule.Id</td>
+                                    <td>@Html.ActionLink(schedule.ScheduledTime.ToLongDateString(), "Edit", "Schedule", new { id = schedule.Id }, null)</td>
+                                    @{
+                                        if (Model.Addresses.SingleOrDefault(c => c.Id == schedule.UserAddressId) == null)
+                                        {
+                                            <td>"No address available, please edit the schedule."</td>
+                                        }
+                                        else
+                                        {
+                                            <td class="TableDisplay">@Model.Addresses.SingleOrDefault(c => c.Id == schedule.UserAddressId).Address</td>
+                                        }
+
+                                    }
+                                    <td class="ScheduleStatus">@schedule.State</td>
+
+                                    <td>@Html.ActionLink("Delete Schedule", "DeleteSchedule", "Schedule", new { id = schedule.Id }, new { @class = "btn btn-primary" })</td>
+                                </tr>
+
+                            }
+                        </tbody>
+                    </table>
+                }
+
+            }
         }
 
-    }
-}
-
+</body>

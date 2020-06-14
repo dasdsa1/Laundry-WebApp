@@ -78,5 +78,12 @@ namespace WebApplication3.Controllers
             return RedirectToAction("Index", "Admin");
         }
 
+        public IActionResult ReceiveEmailFromUser(string senderEmail, string subject, string body)
+        {
+            _emailSender.Send("p4ulo.st@gmail.com", subject, "From: " + senderEmail + " " + body);
+
+            return RedirectToAction("Index", "Home");
+        }
+
     }
 }
