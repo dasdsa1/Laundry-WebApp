@@ -41,7 +41,7 @@
     <img class=" topImage" id="topImage" src="~/Images/Secagem1.jpg" />
 
     <h1>Bem vindo a  WashStation Gaia!</h1>
-    <h2>Tempo para o mais importante.</h2>
+    <h2 id="changingHeader">Tempo para o mais importante.</h2>
     <div class="row1">
         <div class="leftColumn">Conforto e Facilidade para o seu dia a dia.</div>
         <div class="rightColumn">Pré-Lavagem incluída em todos os programas.<br /> Detergente, Amaciador, Higienizente e Oxi incluídos em todas as lavagens.</div>
@@ -182,6 +182,17 @@
 
     });
 
+    $(function () {
+        $('.btn').hover(
+            function () {
+                $(this).css("background-color", '#a6d3ff');
+            }, function () {
+                $(this).css("background-color", "#1b6ec2")
+            });
+    });
+
+
+
     $(document).ready(function () {
 
         
@@ -207,8 +218,43 @@
 
     }, 6000);
         
-            
+
+    var txtArr = [];
+        txtArr[0] = "Tempo para o mais importante.";
+        txtArr[1] = "Tempo para o mais importante";
+        txtArr[2] = "Tempo para o mais important";
+        txtArr[3] = "Tempo para o mais importan";
+        txtArr[4] = "Tempo para o mais importa";
+        txtArr[5] = "Tempo para o mais import";
+        txtArr[6] = "Tempo para o mais impor";
+        txtArr[7] = "Tempo para o mais impo";
+        txtArr[8] = "Tempo para o mais imp";
+        txtArr[9] = "Tempo para o mais im";
+        txtArr[10] = "Tempo para o mais i";
+        txtArr[10] = "Tempo para o mais ";
+        txtArr[11] = "Tempo para o mais g";
+        txtArr[12] = "Tempo para o mais gos";
+        txtArr[13] = "Tempo para o mais gost";
+        txtArr[14] = "Tempo para o mais gosto";
+        txtArr[15] = "Tempo para o mais gostos";
+        txtArr[16] = "Tempo para o mais gostoso";
+        txtArr[17] = "Tempo para o mais gostoso!";
+
+        let y = 0;
+
+        setInterval(function () {
+
+        if (y >= txtArr.length -1) { y = 0 }
+        else { y++ }
+
+        $('#changingHeader').text(txtArr[y]);
+
+    }, 500);
+
         
+
+   
+            
     
 })
 

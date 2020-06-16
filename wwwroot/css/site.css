@@ -20,7 +20,7 @@ a.navbar-brand {
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
   color: #fff;
-  background-color: #1b6ec2;
+  background-color: #1b6ec1;
   border-color: #1861ac;
 }
 
@@ -74,7 +74,7 @@ html {
 }
 
 h1 {
-    color: #223556
+    color: #4182e5
 }
 
 label {
@@ -90,13 +90,13 @@ details {
 
 p {
     font-size: 90%;
-    color: #223556
+    color: #4182e5
 }
 
 
 h2 {
-    font-size: 250% ;
-    color: #223556;
+    font-size: 250%;
+    color: #4182e5;
 }
 
 

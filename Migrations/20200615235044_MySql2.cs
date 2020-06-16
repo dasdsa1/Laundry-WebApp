@@ -1,9 +1,10 @@
 ﻿using System;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace WebApplication3.Migrations
 {
-    public partial class FirstMigration : Migration
+    public partial class MySql2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,7 +13,7 @@ namespace WebApplication3.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Address = table.Column<string>(nullable: true),
                     ApplicationUserId = table.Column<string>(nullable: true)
                 },
@@ -68,7 +69,7 @@ namespace WebApplication3.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     ServiceType = table.Column<string>(nullable: true),
                     Duvet = table.Column<bool>(nullable: false),
                     Blanket = table.Column<bool>(nullable: false),
@@ -84,7 +85,7 @@ namespace WebApplication3.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     RoleId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -105,7 +106,7 @@ namespace WebApplication3.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     UserId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -190,16 +191,17 @@ namespace WebApplication3.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     ScheduledTime = table.Column<DateTime>(nullable: false),
                     ApplicationUserId = table.Column<string>(nullable: true),
-                    RequestTime = table.Column<DateTime>(nullable: false),
+                    RequestTime = table.Column<DateTime>(nullable: true),
                     UserAddressId1 = table.Column<int>(nullable: true),
                     UserAddressId = table.Column<byte>(nullable: false),
                     State = table.Column<string>(nullable: true),
                     Name = table.Column<string>(nullable: true),
                     Observations = table.Column<string>(nullable: true),
                     LastModifiedUserId = table.Column<string>(nullable: true),
+                    TypeOfClient = table.Column<string>(nullable: true),
                     TypesOfServicesId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -228,8 +230,7 @@ namespace WebApplication3.Migrations
                 name: "RoleNameIndex",
                 table: "AspNetRoles",
                 column: "NormalizedName",
-                unique: true,
-                filter: "[NormalizedName] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetUserClaims_UserId",
@@ -255,8 +256,7 @@ namespace WebApplication3.Migrations
                 name: "UserNameIndex",
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
-                unique: true,
-                filter: "[NormalizedUserName] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Schedules_TypesOfServicesId",

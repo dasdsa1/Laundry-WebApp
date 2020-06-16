@@ -22,6 +22,7 @@ namespace WebApplication3.Data
         public DbSet<UserAddress> Addresses { get; set; }
 
         public DbSet<TypesOfServices> Services { get; set; }
-        
+
+       
     }
 }

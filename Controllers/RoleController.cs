@@ -77,7 +77,9 @@ namespace WebApplication3.Controllers
                 RoleName = role.Name
             };
 
-            foreach(var user in userManager.Users)
+            var userManagerList = userManager.Users.ToList();
+
+            foreach(var user in userManagerList)
             {
                 if(await userManager.IsInRoleAsync(user, role.Name))
                 {
@@ -136,7 +138,9 @@ namespace WebApplication3.Controllers
 
             var model = new List<UserRoleViewModel>();
 
-            foreach (var user in userManager.Users)
+            var userManagerList = userManager.Users.ToList();
+
+            foreach (var user in userManagerList)
             {
                 var userRoleViewModel = new UserRoleViewModel
                 {
