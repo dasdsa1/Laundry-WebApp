@@ -1,17 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication3.Services;
+
 
 namespace WebApplication3.Controllers
 {
     public class EMailController : Controller
     {
-
+        
         private IEmailSender _emailSender;
 
+        
         public EMailController(IEmailSender emailSender)
 
         {
@@ -19,6 +23,8 @@ namespace WebApplication3.Controllers
             _emailSender = emailSender;
 
         }
+
+
 
 
         public IActionResult Index()
@@ -84,6 +90,7 @@ namespace WebApplication3.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+        
 
     }
 }

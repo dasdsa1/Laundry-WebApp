@@ -13,10 +13,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using WebApplication3.Models;
-using WebApplication3.Features.Messaging;
+
 using Microsoft.AspNetCore.Mvc.Razor;
-using WebApplication3.Infrastructure;
+
 using WebApplication3.Services;
+using AutoMapper;
+using WebApplication3.AppStart;
 
 namespace WebApplication3
 {
@@ -33,24 +35,35 @@ namespace WebApplication3
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseMySql("server=127.0.0.1;port=3306; database=WebApp3DB; user=root; password=Init.123"));
+                options.UseMySql("server=18.223.238.67; port=3306; Database=WebApp3DB; Uid=root; Pwd=Init.123"));
                     //Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true).AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
+            
 
 
             //services.AddTransient<IMessageService, MessageService>();
 
-            services.Configure<RazorViewEngineOptions>(x => x.ViewLocationExpanders.Add(new ViewLocationExpander()));
 
-            services.AddTransient<IViewRenderer, ViewRenderer>();
 
-            services.AddScoped<IEmailSender, EmailSender>();
+            services.AddScoped<IEmailSender, AmazonEmailSender>();
 
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+            var mappingConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new MappingProfile());
+            });
+
+            IMapper mapper = mappingConfig.CreateMapper();
+            services.AddSingleton(mapper);
+
+            services.AddMvc();
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -63,6 +76,7 @@ namespace WebApplication3
             }
             else
             {
+               
                 app.UseExceptionHandler("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();

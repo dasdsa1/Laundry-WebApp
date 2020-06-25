@@ -14,11 +14,11 @@
         <h3>Role</h3>
         <p>@role.Name</p>
         
-        <a class="button btn-primary" asp-action="EditRole" asp-controller="Role"asp-route-id="@role.Id">Edit</a>
-        <a class="button btn-primary" asp-action="DeleteRole" asp-controller="Role" asp-route-id="@role.Id">Delete</a>
+        <a class="btn btn-primary" asp-action="EditRole" asp-controller="Role"asp-route-id="@role.Id">Edit</a>
+        <a class="btn btn-primary" asp-action="DeleteRole" asp-controller="Role" asp-route-id="@role.Id">Delete</a>
     }
     <p></p>
-    <a class="button btn-primary" style="width:auto"
+    <a class="btn btn-primary" style="width:auto"
        asp-controller="Role" asp-action="CreateRole">Create Role</a>
 
 }
@@ -28,7 +28,7 @@ else
         <h3>No Roles were added, click the button bellow to add a Role.</h3>
     </div>
     <div>
-        <a class="button btn-primary" style="width:auto"
+        <a class="btn btn-primary" style="width:auto"
            asp-controller="Role" asp-action="CreateRole">Create Role</a>
     </div>
 

@@ -9,10 +9,10 @@ namespace WebApplication3.Services
 
 {
 
-    public class EmailSender : IEmailSender
+    public class EmailSender 
 
-    {   
-
+    {
+        /*
         private string _smtpServer;
 
         private int _smtpPort;
@@ -107,9 +107,8 @@ namespace WebApplication3.Services
                 client.Disconnect(true);
 
             }
-
-        }
-
+            */
     }
 
 }
+    

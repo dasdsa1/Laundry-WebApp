@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebApplication3.Data;
+using WebApplication3.Models;
 
 namespace WebApplication3.Controllers.API
 {
@@ -18,6 +19,19 @@ namespace WebApplication3.Controllers.API
         public APIScheduleController(ApplicationDbContext context)
         {
             _context = context;
+        }
+
+
+
+        [Route("/api/GetSchedules")]
+        public IEnumerable<Schedule> GetSchedules()
+        {
+            return _context.Schedules.ToList();
+        }
+
+        public IQueryable GetASchedule()
+        {
+            return _context.Schedules.Where(a => a.Id == 6);
         }
         
         public IActionResult DeleteSchedule(int id)
